@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <title>Games</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="player container" v-if="data.player !=null" v-cloak>
+            <h2>Player:</h2>
+            <p>
+                <h2>{{data.player.userName}}</h2> <input type="submit" class="btn" value="logout" @click="logout">
+            </p>
+
+
+
+        </div>
+        <div class="mainLogin container" v-if="data.player == null" v-cloak>
+            <h1>Login:</h1>
+            <form action="" onsubmit="return false">
+                <div class="forLog">
+                    <div class="user">
+                        <label for="usuario">User:</label><input type="email" id="usuario" required>
+                    </div>
+                    <div class="password">
+                        <label for="password">Pwd:</label> <input type="password" id="password" required>
+                    </div>
+                    <div class="buttom">
+                        <input type="submit" class="btn" value="Log In" @click="login">
+                    </div>
+                    <div class="button">
+                        <p>if you have no user -> <button class="btn" @click="singUp">SingUp</button></p>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="lista">
+            <div class="container">
+                <h2>Game Table:</h2>
+                <p>A complete Game List with Game Players:</p>
+            </div>
+
+            <ul id="crealista" class="container" v-cloak>
+                <!-- Aqui adicionei um nivel ao meu Json depois
+                que modifiquei o acesso em Java api. data.games-->
+                <li v-for="(dados) in showGames" class="list-group list-group-item">
+
+                    <mark> GAME ({{dados.id}}) </mark> / Date: {{dados.fecha}}
+
+
+
+                    <span v-if="dados.gamePlayers.length > 1">
+
+
+                        <mark>Players: </mark> {{dados.gamePlayers[0].player.userName}} VS
+                        {{dados.gamePlayers[1].player.userName}}
+
+
+
+
+                    </span>
+                    <span v-else>
+                        {{dados.gamePlayers[0].player.userName}}
+                    </span>
+                    <input type="submit" class="btn" value="join Game" @click="jGame(dados)" v-if="data.player !=null"
+                        v-cloak>
+
+
+
+
+                </li>
+
+
+
+
+
+
+
+            </ul>
+
+        </div>
+
+        <div class="container">
+            <div class="score">
+                <h1>Game Players Score:</h1>
+            </div>
+
+            <div class="tabela">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th v-for='head in tHead'>{{head}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='sinfo in dataScore'>
+                            <td>{{sinfo.player}}</td>
+                            <td>{{sinfo.total}}</td>
+                            <td>{{sinfo.wons}}</td>
+                            <td>{{sinfo.losts}}</td>
+                            <td>{{sinfo.ties}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <script src="script/games.js"></script>
+
+</body>
+
+</html>

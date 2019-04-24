@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <title>Ship Locations!</title>
+</head>
+<body>
+<div  id="app">
+
+   <div class="showgameplayers">
+       <div class="titulo"> <div><h1>My Table:</h1></div></div>
+       <div class="gameplayers">
+           <div class="gp1">
+               <div class="gpname"><h3>Game Player1:</h3></div>
+               <div id="gp1UserName" class="gpmail"><h2>{{userNames[0]}}</h2></div>
+           </div>
+           <div class="gp1">
+               <div class="gpname"><h3>Game Player2:</h3></div>
+               <div id="gp2UserName" class="gpmail" v-if="!userNames.length < 1"><h2>{{userNames[1]}}</h2></div>
+           </div>
+       </div>
+
+   </div>
+    <div class="text-center mygrid">
+
+        <table id="tabla" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th v-for="numero in numeros">{{numero}}</th>
+                </tr>
+            </thead>
+            <tbody>
+            <template v-for="letra in letras">
+                <tr>
+                    <td>{{letra}}</td>
+                <td v-for="numero in numeros" :id=letra+numero @click="changeBackground()">({{letra}}, {{numero}})</td>
+                </tr>
+            </template>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<script src="script/game.js"></script>
+</body>
+</html>
