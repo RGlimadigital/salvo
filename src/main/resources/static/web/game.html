@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: xmlns:>
+
 <head>
     <meta charset="UTF-8">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -8,61 +9,97 @@
     <link rel="stylesheet" href="style/style.css">
     <title>Ship Locations!</title>
 </head>
+
 <body>
-<div  id="app">
+    <div id="app">
 
-   <div class="showgameplayers">
-       <div class="titulo"> <div><h1>My Table:</h1></div></div>
-       <div class="gameplayers">
-           <div class="gp1">
-               <div class="gpname"><h3>Game Player1:</h3></div>
-               <div id="gp1UserName" class="gpmail"><h2>{{userNames[0]}}</h2></div>
-           </div>
-           <div class="gp1">
-               <div class="gpname"><h3>Game Player2:</h3></div>
-               <div id="gp2UserName" class="gpmail" v-if="!userNames.length < 1"><h2>{{userNames[1]}}</h2></div>
-           </div>
-       </div>
+        <div class="showgameplayers">
+            <div class="titulo">
+                <div>
+                    <h1>My Table:</h1>
+                </div>
+            </div>
+            <div class="gameplayers">
+                <div class="gp1">
+                    <div class="gpname">
+                        <h3>Game Player1:</h3>
+                       
+                    </div>
+                    <div id="gp1UserName" class="gpmail">
+                        <h2>{{userNames[0]}}</h2>
+                    </div>
+                </div>
+                <div class="gp1">
+                    <div class="gpname">
+                        <h3>Game Player2:</h3>
+                    </div>
+                    <div id="gp2UserName" class="gpmail" v-if="!userNames.length < 1">
+                        <h2>{{userNames[1]}}</h2>
+                    </div>
+                </div>
+            </div>
 
-   </div>
-    <div class="text-center mygrid">
+        </div>
+        <div class="text-center mygrid">
+            <div class="ShipsList">               
+               <div class="ships">
+                    <h3>Select Your Boats:</h3>
+                <button   id="aircraft" value="aircraft" class="btn" @click="makeClick('5')">Aircraft Carrier</button>
+                <button   id="battleship" value="battleship" class="btn" @click="makeClick('4')">Battleship</button>
+                <button   id="submarine" value="submarine" class="btn" @click="makeClick('3')">Submarine</button>
+                <button   id="Destroyer" value="Destroyer" class="btn" @click="makeClick('3')">Destroyer</button>
+                <button   id="patrolboat" value="patrolboat" class="btn" @click="makeClick('2')">Patrol Boat</button>
+               <h3>Direction:</h3>
+                <p>
+                     <input type="checkbox" id="chBox" value="Teste">Horizonal.
+                </p>
+                <p>
+                     <input type="checkbox" id="chBoxVert" value="Teste">Vertical <br>
+                </p>
+                <p>
+                    <input type="button" value="Send" id="btSend" @click='sendSalvo()' class="btn-success">
+                </p>
+               </div>
 
-        <table id="tabla" class="table table-bordered">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th v-for="numero in numeros">{{numero}}</th>
-                </tr>
-            </thead>
-            <tbody>
-            <template v-for="letra in letras">
-                <tr>
-                    <td>{{letra}}</td>
-                <td v-for="numero in numeros" :id=letra+numero @click="changeBackground()">({{letra}}, {{numero}})</td>
-                </tr>
-            </template>
+            </div>
+
+            <table id="tabla" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th v-for="numero in numeros">{{numero}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="letra in letras">
+                        <tr>
+                            <td>{{letra}}</td>
+                            <td v-for="numero in numeros" :id=letra+numero  class="q"></td>
+                        </tr>
+                    </template>
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-<script src="script/game.js"></script>
+    <script src="script/game.js"></script>
 </body>
+
 </html>

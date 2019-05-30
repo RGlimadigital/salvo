@@ -59,32 +59,59 @@
             <ul id="crealista" class="container" v-cloak>
                 <!-- Aqui adicionei um nivel ao meu Json depois
                 que modifiquei o acesso em Java api. data.games-->
-                <li v-for="(dados) in showGames" class="list-group list-group-item">
+                <div class="allGames" v-if="allGames != null">
+                    <li v-for="(dados) in allGames" class="list-group list-group-item">
 
-                    <mark> GAME ({{dados.id}}) </mark> / Date: {{dados.fecha}}
-
-
-
-                    <span v-if="dados.gamePlayers.length > 1">
-
-
-                        <mark>Players: </mark> {{dados.gamePlayers[0].player.userName}} VS
-                        {{dados.gamePlayers[1].player.userName}}
+                        <mark> GAME ({{dados.id}}) </mark> / Date: {{dados.fecha}}
 
 
 
+                        <span v-if="dados.gamePlayers.length > 1">
 
-                    </span>
-                    <span v-else>
-                        {{dados.gamePlayers[0].player.userName}}
-                    </span>
-                    <input type="submit" class="btn" value="join Game" @click="jGame(dados)" v-if="data.player !=null"
-                        v-cloak>
+
+                            <mark>Players: </mark> {{dados.gamePlayers[0].player.userName}} VS
+                            {{dados.gamePlayers[1].player.userName}}
 
 
 
 
-                </li>
+                        </span>
+                        <span v-else>
+                            {{dados.gamePlayers[0].player.userName}}
+                        </span>
+                        <input type="submit" class="btn" value="Back Game" @click="jGame(dados)"
+                            v-if="data.player !=null" v-cloak>
+
+
+
+
+                    </li>
+                </div>
+                <div class="showGames" v-if="showGames">
+                    <li v-for="(dados) in showGames" class="list-group list-group-item">
+
+                        <mark> GAME ({{dados.id}}) </mark> / Date: {{dados.fecha}}
+
+
+
+                        <span v-if="dados.gamePlayers.length > 1  ">
+
+
+                            <mark>Players: </mark> {{dados.gamePlayers[0].player.userName}} VS
+                            {{dados.gamePlayers[1].player.userName}}
+
+
+                        </span>
+                        <span v-else>
+                             id:{{dados.id}} {{dados.gamePlayers[0].player.userName}}  <input type="submit" class="btn" value="Join Game" @click="joinGame(dados.id)"  v-cloak>
+                        </span>
+                         
+
+
+
+
+                    </li>
+                </div>
 
 
 

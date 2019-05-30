@@ -3,12 +3,10 @@ package salvo.battleship.salvo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class Player {

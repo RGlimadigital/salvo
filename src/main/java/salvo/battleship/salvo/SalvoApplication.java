@@ -7,18 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,12 +27,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class 	SalvoApplication extends SpringBootServletInitializer {
@@ -259,7 +252,7 @@ public class 	SalvoApplication extends SpringBootServletInitializer {
 			gamePlayerRepository.save(gp12);
 			gamePlayerRepository.save(gp13);
 
-
+			/*
 			shipRepository.save(carrier);
 			shipRepository.save(submarine);
 			shipRepository.save(destroyer);
@@ -273,8 +266,9 @@ public class 	SalvoApplication extends SpringBootServletInitializer {
 			shipRepository.save(JBBPatrolgp3);
 			shipRepository.save(CoSubgp4);
 			shipRepository.save(CoPbGp4);
-
+			*/
 			//Salvo
+			/*
 			salvoRepository.save(svg1);
 			salvoRepository.save(svg2);
 			salvoRepository.save(svg3);
@@ -282,7 +276,7 @@ public class 	SalvoApplication extends SpringBootServletInitializer {
 			scoreRepository.save(score1);
 			scoreRepository.save(scoregp2);
 
-
+			*/
 
 
 

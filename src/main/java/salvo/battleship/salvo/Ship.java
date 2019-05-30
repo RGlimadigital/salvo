@@ -13,7 +13,7 @@ public class Ship {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private String ShipType;
+    private String type;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gameplayer_id")
@@ -25,33 +25,28 @@ public class Ship {
 
 
 
-    public Ship(){
 
-    }
-    //Aqui ja estou dizendo o que vou relacionar quando crie o meu barco.
-    public Ship(String shipType, List<String> location) {
-        this.ShipType = shipType;
-        this.location = location;
-
-    }
-
-
-
+    public Ship(){}
 
     public long getId() {
         return id;
+    }
+
+    public Ship(String type, List<String> location) {
+        this.type = type;
+        this.location = location;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public String getShipType() {
-        return ShipType;
+    public String getType() {
+        return type;
     }
 
-    public void setShipType(String shipType) {
-        ShipType = shipType;
+    public void setShipType(String type) {
+        this.type = type;
     }
 
     @JsonIgnore
@@ -72,6 +67,14 @@ public class Ship {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", gamePlayer=" + gamePlayer +
+                ", location=" + location +
+                '}';
+    }
 
 }

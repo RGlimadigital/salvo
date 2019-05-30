@@ -1,135 +1,168 @@
 body {
-    max-width: 100%;
-
+	max-width: 100%;
 }
-
-
 
 .button,
 .buttom {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .button p {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /*----Mostrando GamePlayer----*/
 
 .showgameplayers {
-    display: grid;
-    grid-template-columns: 10% 1fr 10%;
-    width: 100%;
-
-
+	display: grid;
+	grid-template-columns: 10% 1fr 10%;
+	width: 100%;
 }
-
 
 .titulo {
-    grid-column: 2/3;
-    border-bottom: 1px solid black;
+	grid-column: 2/3;
+	border-bottom: 1px solid black;
 }
 
-
-
 .gameplayers {
-
-    grid-column: 2/3;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
+	grid-column: 2/3;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .player {
-    border-bottom: 2px solid red;
-
+	border-bottom: 2px solid red;
 }
 
 .gp1 {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
-
 .gpname {
-    width: 30%;
-
+	width: 30%;
 }
 
 .gpmail {
-    width: 45%;
+	width: 45%;
 }
 
-
-
-
 .mygrid {
-    display: grid;
-    grid-template-columns: 10% 1fr 10%;
-    width: 100%;
-    grid-template-rows: 5% 1fr 5%;
+	display: grid;
+	grid-template-columns: 25% 1fr 10%;
+	width: 100%;
+	grid-template-rows: 5% 1fr 5%;
 }
 
 .table {
-    width: 100%;
-    grid-column: 2/3;
-    grid-row: 2/3;
-
-
+	width: 100%;
+	grid-column: 2/3;
+	grid-row: 2/3;
 }
 
 .centro {
-    grid-column: 1/4;
-    grid-row: 1/2;
-
+	grid-column: 1/4;
+	grid-row: 1/2;
 }
 
 .backGround {
-    background: blue;
+	background: blue;
 }
 
 .forLog {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: flex-start;
-    border-bottom: 2px solid red;
-    padding-bottom: 10px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-content: flex-start;
+	border-bottom: 2px solid red;
+	padding-bottom: 10px;
 }
 
 .user {
-
-    grid-column: 1/2;
+	grid-column: 1/2;
 }
 
 .password {
-    grid-column: 2/3;
+	grid-column: 2/3;
 }
 
 .send {
-    grid-column: 3/4;
-    align-self: baseline;
+	grid-column: 3/4;
+	align-self: baseline;
 }
 
 .singup {
-    grid-column: 4/5;
+	grid-column: 4/5;
 }
 
-
-
 .btn {
-    padding: 2px 3px;
-    background: red;
-    color: #fff;
-    margin-left: 10px;
-
-
+	padding: 2px 3px;
+	background: red;
+	color: #fff;
+	margin-left: 10px;
 }
 
 [v-cloak] {
-    display: none;
+	display: none;
+}
+
+.mouseOver {
+	background: rgb(92, 91, 91);
+}
+
+/*----The Boats----*/
+
+.ShipsList {
+	display: flex;
+	grid-column: 1/2;
+	grid-row: 2/3;
+}
+.ships {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.ships h3 {
+	text-align: center;
+}
+
+.btn {
+	height: 2em;
+	padding: 5px;
+	margin: 10px;
+}
+
+/*---Todos Los estilos de Los Barcos----*/
+
+.blue {
+	background-color: rgb(137, 137, 243);
+}
+
+.aircraft {
+	background-color: blue;
+}
+
+.battleship {
+	background-color: red;
+}
+.patrolboat {
+	background-color: green;
+}
+
+.submarine {
+	background-color: orange;
+}
+
+.Destroyer {
+	background-color: yellow;
+}
+
+.grey {
+	background-color: grey;
 }

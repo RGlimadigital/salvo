@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,34 +27,62 @@ public class SalvoController {
     @Autowired//injeccion de dependencia.
     private PlayerRepository playerRepo ;
 
+    @Autowire
+    private ShipRepository shipsRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(path = "/players", method = RequestMethod.POST)
     public  ResponseEntity <Object> register(@RequestBody Player playerToRegister) {
-
-
-        if (playerToRegister.getUserName().isEmpty() || playerToRegister.getPassword().isEmpty()) {
-
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-
-        }
-
-        if (playerRepo.findByUserName(playerToRegister.getUserName()) !=  null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
-        }
+        if (playerToRegister.getUserName().isEmpty() || playerToRegister.getPassword().isEmpty())  return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        if (playerRepo.findByUserName(playerToRegister.getUserName()) !=  null)  return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
 
 
         playerRepo.save(playerToRegister);
-        System.out.println("Crieie");
+
         return new ResponseEntity<>(HttpStatus.CREATED);
 
 
     }
 
+    @RequestMapping(value = "/games/players/{gamePlayerId}/ships", method = RequestMethod.POST)
+    public  ResponseEntity <Object> shipList( @PathVariable long gamePlayerId, @RequestBody Set<Ship> ships,Authentication auth)  {
+        if(isConvidado(auth))  return new ResponseEntity<>("No ships", HttpStatus.UNAUTHORIZED);
+
+        Player player = playerRepo.findByUserName(auth.getName());
+        GamePlayer gameplay = gamePlayerRepo.findOne(gamePlayerId);
+        System.out.println("My Player = " + player);
+        System.out.println("gameplay = " + gameplay);
+
+        if(gameplay == null) return new ResponseEntity<>("No ships", HttpStatus.UNAUTHORIZED);
+
+        if(!player.getGamePlayers().contains(gameplay)) return new ResponseEntity<>("No ships", HttpStatus.UNAUTHORIZED);
+
+        if(!gameplay.getShips().isEmpty())  return new ResponseEntity<>("No ships", HttpStatus.FORBIDDEN);
+        /*
+        ships.forEach((ship) -> {
+           gameplay.addShip(ship);
+           shipsRepo.save(ship);
+
+        });
+        */
+        for(Ship ship: ships){
+            gameplay.addShip(ship);
+            shipsRepo.save(ship);
+        }
+
+        System.out.println("gameplay getShips = " + gameplay.getShips());
+        System.out.println("shipRepo = " + shipsRepo);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
+
     @RequestMapping(path = "/games", method = RequestMethod.POST)
     public  ResponseEntity <Object> createGame(Authentication auth) {
+
         Game game = new Game(Game.getNovaDate());
         GamePlayer gamePlayer = new GamePlayer();
 
@@ -71,6 +98,34 @@ public class SalvoController {
         return new ResponseEntity<>(HttpStatus.CREATED);
 
 
+    }
+
+    @RequestMapping(path = "/game/{gameId}/players", method = RequestMethod.POST)
+    public  ResponseEntity <Object> joinGame(Authentication auth, @PathVariable long gameId ) {
+
+        Player player = playerRepo.findByUserName(auth.getName());
+        Game game = gamesRepo.findOne(gameId);
+
+        if(game.gamePlayers.size() > 1) return new ResponseEntity<>("The game is Full", HttpStatus.FORBIDDEN);
+
+        if(game == null || player == null) return new ResponseEntity<>("No name given", HttpStatus.FORBIDDEN);
+
+
+        GamePlayer gamePlayer = new GamePlayer();
+        player.addGamePlayer(gamePlayer);
+        game.addGamePlayer(gamePlayer);
+
+        gamePlayerRepo.save(gamePlayer);
+
+        System.out.println("gpId" + gamePlayer.getId());
+        return new ResponseEntity<>(makeMap("gpId", gamePlayer.getId()),  HttpStatus.CREATED);
+
+
+    }
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
     }
 
     @RequestMapping("/games")//afecta la que esta cerca
@@ -91,26 +146,31 @@ public class SalvoController {
 
     @RequestMapping("/leaderboard")
     public List<LinkedHashMap<String, Object>> getLeader() {
-        return playerRepo.findAll().stream()
+        return playerRepo.findAll()
+                .stream()
                 .filter(player -> player.getScores().size() > 0)
-                .map(player -> getScoresDTO(player))
+                .map(this::getScoresDTO)
                 .collect(Collectors.toList());
     }
 
     private LinkedHashMap<String, Object> getScoresDTO(Player player){
-        long losts = player.getScores().stream()
+        long losts = player.getScores()
+                .stream()
                 .filter(score -> score.getPlayerScore() == 0.0)
                 .count(); 
 
-        long wons = player.getScores().stream()
+        long wons = player.getScores()
+                .stream()
                 .filter(score -> score.getPlayerScore() == 1.0)
                 .count();
 
-        long ties = player.getScores().stream()
+        long ties = player.getScores()
+                .stream()
                 .filter(score -> score.getPlayerScore() == 0.5)
                 .count();
 
-        double total = player.getScores().stream()
+        double total = player.getScores()
+                .stream()
                 .mapToDouble(score -> score.getPlayerScore())
                 .sum();
 
@@ -192,7 +252,7 @@ public class SalvoController {
     private List<Map<String, Object>> makeShipDTO(Set<Ship> ships) {
             return ships.stream().map(ship -> {
                 Map<String, Object> shipDto = new LinkedHashMap<String, Object>();
-                shipDto.put("type", ship.getShipType());
+                shipDto.put("type", ship.getType());
                 shipDto.put("locations", ship.getLocation());
                 return shipDto;
             }).collect(Collectors.toList());
