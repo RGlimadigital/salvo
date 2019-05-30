@@ -150,8 +150,7 @@ var app = new Vue({
 			}
 
 			this.nova.forEach((e) => this.fullCells.push(e));
-			console.log(typeof this.valor);
-			this.ship.push({ type: this.valor, location: this.nova });
+			this.ship.push({ location: this.nova, type: this.valor });
 			console.log(`Contador de navios: ${this.ship.length}`);
 			this.ship.length >= 5 ? (btSend.style.display = 'block') : null;
 

@@ -27,7 +27,7 @@ public class SalvoController {
     @Autowired//injeccion de dependencia.
     private PlayerRepository playerRepo ;
 
-    @Autowire
+    @Autowired
     private ShipRepository shipsRepo;
 
     @Autowired
@@ -60,17 +60,15 @@ public class SalvoController {
         if(!player.getGamePlayers().contains(gameplay)) return new ResponseEntity<>("No ships", HttpStatus.UNAUTHORIZED);
 
         if(!gameplay.getShips().isEmpty())  return new ResponseEntity<>("No ships", HttpStatus.FORBIDDEN);
-        /*
+
         ships.forEach((ship) -> {
            gameplay.addShip(ship);
            shipsRepo.save(ship);
 
         });
-        */
-        for(Ship ship: ships){
-            gameplay.addShip(ship);
-            shipsRepo.save(ship);
-        }
+
+     
+
 
         System.out.println("gameplay getShips = " + gameplay.getShips());
         System.out.println("shipRepo = " + shipsRepo);
